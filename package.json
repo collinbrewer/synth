@@ -1,6 +1,6 @@
 {
   "name": "synth",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Synth is an extensible interface for defining generators that provide output based on a given configuration.",
   "main": "index.js",
   "scripts": {
@@ -12,5 +12,8 @@
   },
   "author": "Collin Brewer <collin@brewer-collective.com>",
   "license": "MIT",
-  "homepage": "https://bitbucket.org/collinbrewer/synth#readme"
+  "homepage": "https://bitbucket.org/collinbrewer/synth#readme",
+  "dependencies": {
+    "extend": "^3.0.0"
+  }
 }

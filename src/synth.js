@@ -10,7 +10,9 @@
 
 (function(){
 
-   var generators={};
+   var extend=require("extend");
+
+   var registry={};
 
    var Synth={
 
@@ -21,7 +23,41 @@
        * @param {function} generator - The generator function
        */
       register: function(type, generator){
-         generators[type]=generator;
+         registry[type]={
+            "generator":generator,
+            "extensions":{},
+            "extenders":[]
+         };
+      },
+
+      /**
+       * Detect if a generator is already registered
+       *
+       * @param {string} type - The type of generator
+       * @return {boolean} True if the generator is already registered
+       */
+      isRegistered: function(type){
+         return (type in registry);
+      },
+
+      /**
+       * Extend an existing generator
+       *
+       * @param {string} type - The type of the existing generator to extend]
+       * @param {mixed} extension - An object containing extensions to be deeply
+       * applied to the generated result or a function that extends the generated
+       * result.  Function should follow the form: function(generated){...}
+       */
+      extend: function(type, extension){
+
+         if(typeof(extension)==="object")
+         {
+            extend(true, registry[type].extensions, extension);
+         }
+         else
+         {
+            registry[type].extenders.push(extension);
+         }
       },
 
       /**
@@ -36,11 +72,23 @@
       generate: function(type, meta, context, name){
 
          var synthed;
+         var registered=registry[type];
 
-         if(type in generators)
+         if(registered)
          {
-            synthed=generators[type](meta, context, name);
+            // generate
+            synthed=registered.generator(meta, context, name);
 
+            // apply extensions
+            extend(synthed, registered.extensions);
+
+            // run custom extenders
+            for(var extenders=registered.extenders, i=0, l=extenders.length, extender; i<l, (extender=extenders[i++]);)
+            {
+               extender(synthed);
+            }
+
+            // put in context
             name!==null && name!==undefined && (context[name]=synthed);
          }
          else
