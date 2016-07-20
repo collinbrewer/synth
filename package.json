@@ -8,12 +8,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://collinbrewer@bitbucket.org/collinbrewer/synth.git"
+    "url": "https://github.com/collinbrewer/synth.git"
   },
   "author": "Collin Brewer <collin@brewer-collective.com>",
   "license": "MIT",
-  "homepage": "https://bitbucket.org/collinbrewer/synth#readme",
+  "homepage": "https://github.com/collinbrewer/synth",
   "dependencies": {
     "extend": "^3.0.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3"
   }
 }

@@ -1,5 +1,7 @@
 # Synth
-Synth is an extensible interface for defining generators that provide output based on a given configuration.
+Synth is an extensible interface for processing an arbitrary [Schema](https://bitbucket.org/collinbrewer/schema).
+
+Where Schemas can define anything, Synth can process anything.
 
 An example use case is synthesizing an entire object graph from a static schema.
 
@@ -13,7 +15,7 @@ var Graph=Synth.generate("object-graph", schema);
 var todo=new Graph.Todo(); // creates a new 'todo' object with setTitle and getTitle methods
 ```
 
-Another more abstract example is to create a custom schema for form field, then defining generators, allowing for arbitrary data to be parsed and processed:
+Another more abstract example is to create a custom schema for a form field, then defining generators, allowing for arbitrary data to be parsed and processed:
 
 ```javascript
 var schema={
